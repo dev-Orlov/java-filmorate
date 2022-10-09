@@ -16,15 +16,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private HashMap<Integer, User> users = new HashMap<>();
+    private final HashMap<Integer, User> users = new HashMap<>();
 
     @GetMapping
     public List<User> getAll() {
-        List<User> usersList = new ArrayList<>();
-        for (int userId : users.keySet()) {
-            usersList.add(users.get(userId));
-        }
-        return usersList;
+        return new ArrayList<>(users.values());
     }
 
     @PostMapping

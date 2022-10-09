@@ -1,26 +1,32 @@
 package ru.yandex.practicum.filmorate.validator;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.FilmValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmValidatorTest {
 
-    @Test
-    @DisplayName("Тест валидации корректного объекта фильма")
-    void createValidateFilm() {
-        Film film1 = Film.builder()
+    private Film initCorrectFilm() {
+        return Film.builder()
                 .name("фильм")
                 .id(10)
                 .description("описание")
                 .releaseDate(LocalDate.of(2020, 11, 12))
                 .duration(120)
                 .build();
+    }
+
+    @Test
+    @DisplayName("Тест валидации корректного объекта фильма")
+    void createValidateFilm() {
+        Film film1 = initCorrectFilm();
         Film film2 = film1;
         FilmValidator.validate(film1);
         assertEquals(film1, film2);
@@ -29,15 +35,11 @@ class FilmValidatorTest {
     @Test
     @DisplayName("Тест валидации фильма с описанием больше 200 символов")
     void createNotValidateFilmWithLongDescription() {
-        Film film1 = Film.builder()
-                .name("фильм")
-                .id(10)
+        Film film1 = initCorrectFilm().toBuilder()
                 .description("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " +
                         "Aenean commodo ligula eget dolor. Aenean massa. " +
                         "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " +
                         "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.")
-                .releaseDate(LocalDate.of(2020, 11, 12))
-                .duration(120)
                 .build();
         FilmValidationException exception = assertThrows(FilmValidationException.class,
                 () -> FilmValidator.validate(film1));
@@ -48,12 +50,8 @@ class FilmValidatorTest {
     @Test
     @DisplayName("Тест валидации фильма с датой раньше 28 декабря 1895")
     void createNotValidateFilmWithImpossibleDate() {
-        Film film1 = Film.builder()
-                .name("фильм")
-                .id(10)
-                .description("описание")
+        Film film1 = initCorrectFilm().toBuilder()
                 .releaseDate(LocalDate.of(1225, 11, 12))
-                .duration(120)
                 .build();
         FilmValidationException exception = assertThrows(FilmValidationException.class,
                 () -> FilmValidator.validate(film1));
@@ -64,11 +62,7 @@ class FilmValidatorTest {
     @Test
     @DisplayName("Тест валидации фильма с отрицательной продолжительностью")
     void createNotValidateFilmWithNegativeDuration() {
-        Film film1 = Film.builder()
-                .name("фильм")
-                .id(10)
-                .description("описание")
-                .releaseDate(LocalDate.of(2012, 11, 12))
+        Film film1 = initCorrectFilm().toBuilder()
                 .duration(-100)
                 .build();
         FilmValidationException exception = assertThrows(FilmValidationException.class,
