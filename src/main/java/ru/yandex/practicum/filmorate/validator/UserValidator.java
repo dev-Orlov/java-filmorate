@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.validator;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.yandex.practicum.filmorate.exception.UserValidationException;
+import ru.yandex.practicum.filmorate.exception.userExeption.UserValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
 @Slf4j
@@ -18,7 +18,7 @@ public class UserValidator {
             user.setName(user.getLogin());
         }
         if (user.getId() == 0) {
-            user.setId(genId + 1);
+            user.setId(++genId);
         }
     }
 }
