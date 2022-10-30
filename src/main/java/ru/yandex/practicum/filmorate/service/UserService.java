@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.userExeption.UnknownUserException;
 import ru.yandex.practicum.filmorate.exception.userExeption.UserValidationException;
@@ -13,14 +13,11 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserStorage userStorage;
 
-    @Autowired
-    public UserService(UserStorage userStorage) {
-        this.userStorage = userStorage;
-    }
 
     public void addFriend(int userId, int friendId) {
         User user1 = userStorage.getUser(userId);
@@ -58,5 +55,25 @@ public class UserService {
             friendList.add(userStorage.getUser(findId));
         }
         return friendList;
+    }
+
+    public User getUser(int userId) {
+        return userStorage.getUser(userId);
+    }
+
+    public List<User> getAll() {
+        return userStorage.getAll();
+    }
+
+    public User create(User user) {
+        return userStorage.create(user);
+    }
+
+    public User update(User user) {
+        return userStorage.update(user);
+    }
+
+    public User remove(User user) {
+        return userStorage.remove(user);
     }
 }
