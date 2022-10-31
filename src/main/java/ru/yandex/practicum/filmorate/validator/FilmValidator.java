@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.validator;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.yandex.practicum.filmorate.exception.FilmValidationException;
+import ru.yandex.practicum.filmorate.exception.filmExeption.FilmValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class FilmValidator {
             throw new FilmValidationException("продолжительность фильма должна быть положительной");
         }
         if (film.getId() == 0) {
-            film.setId(genId + 1);
+            film.setId(++genId);
         }
     }
 }
