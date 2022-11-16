@@ -2,7 +2,7 @@
 
 Схема базы данных
 
-![Схема базы данных](https://github.com/dev-Orlov/java-filmorate/blob/main/chart.png?raw=true)
+![Схема базы данных](https://github.com/dev-Orlov/java-filmorate/blob/main/chart_v6.png?raw=true)
 
 **Фильмы**  
 1. В таблице film хранится информация о фильмах. 
@@ -33,4 +33,23 @@ LIMIT 10;
 
 **Пользователи** 
 1. В таблице user хранится информация о пользователях.
-2. Та
+2. В таблице friends хранятся id друзей пользователя
+Поле status таблицы friends хранит в ENUM значение подтвержденной или неподтвержденной заявки в друзья.
+3. В таблице likes хранятся лайки пользователя. Пользователям соответствуют понравившиеся фильмы.
+
+*Примеры запросов для операций с пользователями*
+
+**getUser()**  
+SELECT *,  
+FROM user  
+WHERE user_id = 1;
+
+**getAll()**  
+SELECT *,  
+FROM user;
+
+**getFriendList()**  
+SELECT *
+FROM user AS u  
+RIGHT JOIN friends AS f ON u.user_id = f.friend_id  
+GROUP BY user_id;
