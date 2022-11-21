@@ -2,7 +2,7 @@
 
 Схема базы данных
 
-![Схема базы данных](https://github.com/dev-Orlov/java-filmorate/blob/main/chart_v6.png?raw=true)
+![Схема базы данных](https://raw.githubusercontent.com/dev-Orlov/java-filmorate/8ee8313b6bfb9719ad7a4f26005fe0d8e787d1d4/chart_v7.png)
 
 **Фильмы**  
 1. В таблице film хранится информация о фильмах. 
