@@ -1,7 +1,9 @@
-package ru.yandex.practicum.filmorate.model;
+package ru.yandex.practicum.filmorate.model.film;
 
 import lombok.Builder;
 import lombok.Data;
+import ru.yandex.practicum.filmorate.model.film.utils.Genre;
+import ru.yandex.practicum.filmorate.model.film.utils.Rating;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,8 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private int duration;
+    private Rating rating;
+    private final Set<Genre> genre = new HashSet<>(); // сохраняем жанры фильма
     private final Set<Integer> likes = new HashSet<>(); // сохраняем id пользователя, поставившего лайк
 
     public boolean addLike(Integer userId) {

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.filmExeption.UnknownFilmException;
 import ru.yandex.practicum.filmorate.exception.userExeption.UnknownUserException;
 import ru.yandex.practicum.filmorate.exception.userExeption.UserValidationException;
-import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.model.user.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;

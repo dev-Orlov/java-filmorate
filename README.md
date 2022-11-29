@@ -32,7 +32,7 @@ ORDER BY COUNT(film_id) DESC
 LIMIT 10;
 
 **Пользователи** 
-1. В таблице user хранится информация о пользователях.
+1. В таблице users хранится информация о пользователях.
 2. В таблице friends хранятся id друзей пользователя
 Поле status таблицы friends хранит в boolean значение подтвержденной или неподтвержденной заявки в друзья.
 3. В таблице likes хранятся лайки пользователя. Пользователям соответствуют понравившиеся фильмы.
@@ -41,15 +41,15 @@ LIMIT 10;
 
 **getUser()**  
 SELECT *,  
-FROM user  
+FROM users  
 WHERE user_id = 1;
 
 **getAll()**  
 SELECT *,  
-FROM user;
+FROM users;
 
 **getFriendList()**  
 SELECT *
-FROM user AS u  
+FROM users AS u  
 RIGHT JOIN friends AS f ON u.user_id = f.friend_id  
 GROUP BY user_id;
