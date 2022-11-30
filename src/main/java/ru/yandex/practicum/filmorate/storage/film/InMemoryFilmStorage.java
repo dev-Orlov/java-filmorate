@@ -34,21 +34,6 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public List<Mpa> getFilmGenres(int id) {
-        return null;
-    }
-
-    @Override
-    public HashMap<Integer, String> getMapGenres() {
-        return null;
-    }
-
-    @Override
-    public Mpa getFilmRating(int id) {
-        return null;
-    }
-
-    @Override
     public Film create(Film film) {
         FilmValidator.validate(film);
         films.put(film.getId(), film);
@@ -101,27 +86,62 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public List<Integer> getFilmLikes(int filmId) {
-        return null;
-    }
-
-    @Override
     public List<Mpa> getAllRatings() {
-        return null;
+        List<Mpa> filmRatings = new ArrayList<>();
+        int mpaId = 1;
+
+        for (String getName : new String[]{"G", "PG", "PG-13", "R", "NC-17"}) {
+            filmRatings.add(Mpa.builder().
+                    id(mpaId++)
+                    .name(getName)
+                    .build());
+        }
+        return filmRatings;
     }
 
     @Override
     public Mpa getRatingById(int ratingId) {
-        return null;
+        Mpa findRating = null;
+        for (Mpa rating : getAllRatings()) {
+            if (rating.getId() == ratingId) {
+                findRating = rating;
+            }
+        }
+
+        if (findRating != null) {
+            return findRating;
+        } else {
+            throw new UnknownFilmException("Рейтинга фильма с таким ID не существует");
+        }
     }
 
     @Override
     public List<Mpa> getAllGenres() {
-        return null;
+        List<Mpa> filmGenres = new ArrayList<>();
+        int mpaId = 1;
+
+        for (String getName : new String[]{"Комедия", "Драма", "Мультфильм", "Триллер", "Документальный", "Боевик"}) {
+            filmGenres.add(Mpa.builder().
+                    id(mpaId++)
+                    .name(getName)
+                    .build());
+        }
+        return filmGenres;
     }
 
     @Override
     public Mpa getGenreById(int genreId) {
-        return null;
+        Mpa findGenre = null;
+        for (Mpa genre : getAllRatings()) {
+            if (genre.getId() == genreId) {
+                findGenre = genre;
+            }
+        }
+
+        if (findGenre != null) {
+            return findGenre;
+        } else {
+            throw new UnknownFilmException("Жанра фильма с таким ID не существует");
+        }
     }
 }

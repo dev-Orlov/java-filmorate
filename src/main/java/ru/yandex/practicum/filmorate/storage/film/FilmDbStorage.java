@@ -160,8 +160,7 @@ public class FilmDbStorage implements FilmStorage {
         }
     }
 
-    @Override
-    public List<Mpa> getFilmGenres(int id) {
+    private List<Mpa> getFilmGenres(int id) {
         SqlRowSet mpaRows = jdbcTemplate.queryForRowSet("SELECT * FROM genres AS g " +
                 "RIGHT JOIN film_genre AS fg ON g.genre_id = fg.genre_id " +
                 "GROUP BY fg.film_id, g.genre_id HAVING fg.film_id = ?", id);
@@ -176,8 +175,7 @@ public class FilmDbStorage implements FilmStorage {
         return mpaList;
     }
 
-    @Override
-    public HashMap<Integer, String> getMapGenres() {
+    private HashMap<Integer, String> getMapGenres() {
         SqlRowSet mpaRows = jdbcTemplate.queryForRowSet("SELECT * FROM genres");
         HashMap<Integer, String> genresMap = new HashMap<>();
 
@@ -187,8 +185,7 @@ public class FilmDbStorage implements FilmStorage {
         return genresMap;
     }
 
-    @Override
-    public Mpa getFilmRating(int id) {
+    private Mpa getFilmRating(int id) {
         SqlRowSet mpaRows = jdbcTemplate.queryForRowSet("SELECT * FROM rating AS r " +
                 "RIGHT JOIN films AS f ON r.rating_id = f.rating_id " +
                 "GROUP BY f.film_id HAVING f.film_id = ?", id);
@@ -235,8 +232,7 @@ public class FilmDbStorage implements FilmStorage {
         }
     }
 
-    @Override
-    public List<Integer> getFilmLikes(int filmId) {
+    private List<Integer> getFilmLikes(int filmId) {
         SqlRowSet likeRows = jdbcTemplate.queryForRowSet("SELECT * FROM likes WHERE film_id = ?", filmId);
         List<Integer> likeList = new ArrayList<>();
 
