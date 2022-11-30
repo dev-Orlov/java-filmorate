@@ -3,9 +3,11 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.yandex.practicum.filmorate.exception.filmExeption.FilmValidationException;
 import ru.yandex.practicum.filmorate.exception.userExeption.UnknownUserException;
 import ru.yandex.practicum.filmorate.model.film.Film;
+import ru.yandex.practicum.filmorate.model.film.mpa.Mpa;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
 import java.util.Comparator;
@@ -20,21 +22,11 @@ public class FilmService {
     private final FilmStorage filmStorage;
 
     public void addLike(int filmId, int userId) {
-        Film film = filmStorage.getFilm(filmId);
-        if (!film.addLike(userId)) {
-            log.error("Пользователь id={} уже поставил лайк фильму {}", userId, film);
-            throw new FilmValidationException("попытка поставить двойной лайк");
-        }
-        log.debug("Пользователь id={} поставил лайк фильму {}", userId, film);
+        filmStorage.addLike(filmId, userId);
     }
 
     public void removeLike(int filmId, int userId) {
-        Film film = filmStorage.getFilm(filmId);
-        if (!film.removeLike(userId)) {
-            log.error("Не найден пользователь id={} или он ещё не поставил лайк фильму {}", userId, film);
-            throw new UnknownUserException("попытка удалить несуществующий лайк");
-        }
-        log.debug("Пользователь id={} убрал лайк у фильма {}", userId, film);
+        filmStorage.removeLike(filmId, userId);
     }
 
     public List<Film> getPopularFilms(int count) {
@@ -65,5 +57,21 @@ public class FilmService {
 
     public Film remove(Film film) {
         return filmStorage.remove(film);
+    }
+
+    public List<Mpa> getAllRatings() {
+        return filmStorage.getAllRatings();
+    }
+
+    public Mpa getRatingById(int ratingId) {
+        return filmStorage.getRatingById(ratingId);
+    }
+
+    public List<Mpa> getAllGenres() {
+        return filmStorage.getAllGenres();
+    }
+
+    public Mpa getGenreById(int genreId) {
+        return filmStorage.getGenreById(genreId);
     }
 }

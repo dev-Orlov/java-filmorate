@@ -2,8 +2,11 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.exception.filmExeption.FilmValidationException;
 import ru.yandex.practicum.filmorate.exception.filmExeption.UnknownFilmException;
+import ru.yandex.practicum.filmorate.exception.userExeption.UnknownUserException;
 import ru.yandex.practicum.filmorate.model.film.Film;
+import ru.yandex.practicum.filmorate.model.film.mpa.Mpa;
 import ru.yandex.practicum.filmorate.validator.FilmValidator;
 
 import java.util.ArrayList;
@@ -28,6 +31,21 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new UnknownFilmException("попытка получить несуществующий фильм");
         }
         return films.get(id);
+    }
+
+    @Override
+    public List<Mpa> getFilmGenres(int id) {
+        return null;
+    }
+
+    @Override
+    public HashMap<Integer, String> getMapGenres() {
+        return null;
+    }
+
+    @Override
+    public Mpa getFilmRating(int id) {
+        return null;
     }
 
     @Override
@@ -60,5 +78,50 @@ public class InMemoryFilmStorage implements FilmStorage {
         films.remove(film.getId());
         log.debug("Удалён объект фильма: {}", film);
         return film;
+    }
+
+    @Override
+    public void addLike(int filmId, int userId) {
+        Film film = getFilm(filmId);
+        if (!film.addLike(userId)) {
+            log.error("Пользователь id={} уже поставил лайк фильму {}", userId, film);
+            throw new FilmValidationException("попытка поставить двойной лайк");
+        }
+        log.debug("Пользователь id={} поставил лайк фильму {}", userId, film);
+    }
+
+    @Override
+    public void removeLike(int filmId, int userId) {
+        Film film = getFilm(filmId);
+        if (!film.removeLike(userId)) {
+            log.error("Не найден пользователь id={} или он ещё не поставил лайк фильму {}", userId, film);
+            throw new UnknownUserException("попытка удалить несуществующий лайк");
+        }
+        log.debug("Пользователь id={} убрал лайк у фильма {}", userId, film);
+    }
+
+    @Override
+    public List<Integer> getFilmLikes(int filmId) {
+        return null;
+    }
+
+    @Override
+    public List<Mpa> getAllRatings() {
+        return null;
+    }
+
+    @Override
+    public Mpa getRatingById(int ratingId) {
+        return null;
+    }
+
+    @Override
+    public List<Mpa> getAllGenres() {
+        return null;
+    }
+
+    @Override
+    public Mpa getGenreById(int genreId) {
+        return null;
     }
 }
