@@ -1,18 +1,13 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.filmExeption.FilmValidationException;
-import ru.yandex.practicum.filmorate.exception.filmExeption.UnknownFilmException;
-import ru.yandex.practicum.filmorate.exception.userExeption.UnknownUserException;
 import ru.yandex.practicum.filmorate.model.film.Film;
 import ru.yandex.practicum.filmorate.model.film.mpa.Mpa;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -20,18 +15,6 @@ import java.util.Objects;
 public class FilmController {
 
     private final FilmService filmService;
-
-    @ExceptionHandler({UnknownFilmException.class, UnknownUserException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleUnknownFilm(final RuntimeException e) {
-        return Map.of("error", e.getMessage());
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleNegativeValidation(final FilmValidationException e) {
-        return Map.of("error", e.getMessage());
-    }
 
     @GetMapping("/films/{id}")
     public Film getFilm(@PathVariable("id") int filmId) {
