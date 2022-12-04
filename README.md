@@ -2,13 +2,13 @@
 
 Схема базы данных
 
-![Схема базы данных](https://raw.githubusercontent.com/dev-Orlov/java-filmorate/8ee8313b6bfb9719ad7a4f26005fe0d8e787d1d4/chart_v7.png)
+![Схема базы данных](https://raw.githubusercontent.com/dev-Orlov/java-filmorate/add-database/chart_v8.png)
 
 **Фильмы**  
-1. В таблице film хранится информация о фильмах. 
-Отдельно стоит обратить внимание на поле rating: возможные варианты рейтинга хранятся отдельно, в ENUM.
+1. В таблице films хранится информация о фильмах. 
+Отдельно стоит обратить внимание на поле rating_id: возможные варианты рейтинга хранятся отдельно, в таблице raring.
 2. Так как у фильма может быть сразу несколько жанров, информация о них хранится в отдельной таблице film_genre.
-Поле genre_name этой таблицы в ENUM содержит возможные варианты жанров.
+Список всех доступных жанров хранится в таблице genres.
 3. Для хранения лайков служит таблица likes. Фильмам в этой таблице соответствует пользователь, поставивший 
 лайк.
 
@@ -16,20 +16,12 @@
 
 **getFilm()**  
 SELECT *,  
-FROM film  
+FROM films  
 WHERE film_id = 1;  
 
 **getAll()**  
 SELECT *,  
-FROM film;  
-
-**getPopularFilms()**  
-SELECT *    
-FROM film AS f  
-RIGHT JOIN likes AS l ON l.film_id = f.film_id  
-GROUP BY film_id   
-ORDER BY COUNT(film_id) DESC
-LIMIT 10;
+FROM film;
 
 **Пользователи** 
 1. В таблице users хранится информация о пользователях.

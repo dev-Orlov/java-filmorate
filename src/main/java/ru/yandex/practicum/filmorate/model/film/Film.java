@@ -2,16 +2,12 @@ package ru.yandex.practicum.filmorate.model.film;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.yandex.practicum.filmorate.model.film.utils.Genre;
-import ru.yandex.practicum.filmorate.model.film.utils.Rating;
+import ru.yandex.practicum.filmorate.model.film.mpa.Mpa;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder(toBuilder = true)
@@ -24,9 +20,10 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private int duration;
-    private Rating rating;
-    private final Set<Genre> genre = new HashSet<>(); // сохраняем жанры фильма
+    private final Set<Mpa> genres = new HashSet<>(); // сохраняем жанры фильма
+    private Mpa mpa;  //сохраняем рейтинг фильма
     private final Set<Integer> likes = new HashSet<>(); // сохраняем id пользователя, поставившего лайк
+    private long rate;
 
     public boolean addLike(Integer userId) {
         return likes.add(userId);
@@ -44,5 +41,13 @@ public class Film {
 
     public int getRate() {
         return -likes.size();
+    }
+
+    public List<Mpa> getGenres() {
+        return new ArrayList<>(genres);
+    }
+
+    public void setGenres(List<Mpa> filmGenres) {
+        genres.addAll(filmGenres);
     }
 }
