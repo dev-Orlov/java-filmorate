@@ -48,6 +48,7 @@ FROM film;
 3. В таблице likes хранятся лайки пользователя. Пользователям соответствуют понравившиеся фильмы.
 
 <details>
+
 <summary>Примеры запросов для операций с пользователями</summary>
 
 **getUser()** 
@@ -73,6 +74,7 @@ FROM users AS u
 RIGHT JOIN friends AS f ON u.user_id = f.friend_id 
 GROUP BY user_id;
 ```
+
 </details>
 
 Технологический стек
