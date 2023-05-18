@@ -25,11 +25,13 @@ Filmorate
    лайк.
 
 <details>
+
 <summary>Примеры запросов для операций с фильмами</summary>
 
 **getFilm()** `SELECT *, FROM films WHERE film_id = 1;`
 
 **getAll()** `SELECT *, FROM film;`
+
 </details>
 
 **Пользователи**
@@ -39,6 +41,7 @@ Filmorate
 3. В таблице likes хранятся лайки пользователя. Пользователям соответствуют понравившиеся фильмы.
 
 <details>
+
 <summary>Примеры запросов для операций с пользователями</summary>
 
 **getUser()** `SELECT *, FROM users WHERE user_id = 1;`
@@ -46,6 +49,7 @@ Filmorate
 **getAll()** `SELECT *, FROM users;`
 
 **getFriendList()** `SELECT * FROM users AS u RIGHT JOIN friends AS f ON u.user_id = f.friend_id GROUP BY user_id;`
+
 </details>
 
 Технологический стек
